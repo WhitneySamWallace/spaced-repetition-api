@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-
+/* eslint no-useless-escape: 0 */ 
 const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/;
 
 const UserService = {
