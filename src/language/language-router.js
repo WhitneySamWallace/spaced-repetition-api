@@ -43,10 +43,28 @@ languageRouter
     }
   });
 
+
 languageRouter
   .get('/head', async (req, res, next) => {
-    // implement me
-    res.send('implement me!');
+    try {
+      const language = await LanguageService.getUsersLanguage(
+        req.app.get('db'),
+        req.user.id,
+      );
+      const word = await LanguageService.getWord(
+        req.app.get('db'),
+        req.language.head, //Right now this only gets the first word?
+      );
+      
+      res.status(200).json({
+        nextWord: word[0].original,
+        totalScore: language.total_score,
+        wordCorrectCount: word[0].correct_count,
+        wordIncorrectCount: word[0].incorrect_count,
+      });
+    } catch (error) {
+      next(error);
+    }
   });
 
 languageRouter
