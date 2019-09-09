@@ -184,6 +184,8 @@ describe('User Endpoints', function () {
             { original: 'iris', translation: 'rainbow' },
             { original: 'mare', translation: 'sea' },
             { original: 'tempus', translation: 'time' },
+            { original: 'nihil', translation: 'nothing'},
+            { original: 'hortus', translation: 'garden'},
           ]
         };
         return supertest(app)

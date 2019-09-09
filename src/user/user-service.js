@@ -65,7 +65,9 @@ const UserService = {
         ['equus', 'horse', 6],
         ['iris', 'rainbow', 7],
         ['mare', 'sea', 8],
-        ['tempus', 'time', null],
+        ['tempus', 'time', 9],
+        ['nihil', 'nothing', 10],
+        ['hortus', 'garden', null]
       ];
 
       const [languageHeadId] = await trx
