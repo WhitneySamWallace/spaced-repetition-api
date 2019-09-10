@@ -18,19 +18,24 @@ const llService = {
     currNode.value.memory_value = currNode.value.memory_value * 2;
     position = currNode.value.memory_value;
     currNode.value.correct_count++;
-    while ((currNode !== null) && (positionCounter !== position)) {
+    while ((currNode.next !== null) && (positionCounter !== position)) {
       previousNode = currNode;
       currNode = currNode.next;
       positionCounter++;
     }
-    
+
     ll.head = ll.head.next;
     tempNode.next = currNode.next;
     currNode.next = tempNode;
-    
-    tempNode.value.next = tempNode.next.value.id;
+   
+    if(!tempNode.next) {
+      tempNode.value.next = null;
+    } else {
+      tempNode.value.next = tempNode.next.value.id;
+    }
     currNode.value.next = tempNode.value.id;
     ll.head.value.next = ll.head.next.value.id;
+
   },
 
   incorrectGuess(ll) {
