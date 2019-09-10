@@ -1,6 +1,7 @@
 const express = require('express');
 const LanguageService = require('./language-service');
 const LinkedListService = require('./linked-list-service');
+const SLL = require('./LinkedList');
 const { requireAuth } = require('../middleware/jwt-auth');
 
 const languageRouter = express.Router();
@@ -99,7 +100,8 @@ languageRouter
     if (req.body.guess === 'incorrect') {
       try {
       // MANIPULATE LINKED LIST HERE?
-        let ll = LinkedListService.createList(words);
+        let languageLL = new SLL();
+        languageLL = LinkedListService.createList(languageLL, words);
         // set M to 1, increment incorrect count for specific word, increment total score
         // move head to next (remove node and reposition?)
         // reposition question according to M
@@ -107,7 +109,7 @@ languageRouter
         res.status(200)
         // send head (new question)
           .json({
-            ll: ll,
+            ll: languageLL,
             nextWord: nextWord[0].original,
             totalScore: language.total_score,
             wordCorrectCount: currentWord[0],
