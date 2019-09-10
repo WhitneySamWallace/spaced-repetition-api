@@ -15,6 +15,7 @@ const llService = {
     let tempNode = ll.head;
     let positionCounter = 0;
     let position = 0;
+    // console.log('CURR', currNode, 'PREV', previousNode, 'TEMP', tempNode);
     currNode.value.memory_value = currNode.value.memory_value * 2;
     position = currNode.value.memory_value;
     currNode.value.correct_count++;
@@ -27,10 +28,12 @@ const llService = {
     ll.head = ll.head.next;
     tempNode.next = currNode.next;
     currNode.next = tempNode;
-    
+    console.log('FIRST', tempNode.value, 'TEMP', tempNode, 'TEMP-NEXT', tempNode.next);
     tempNode.value.next = tempNode.next.value.id;
+    
     currNode.value.next = tempNode.value.id;
-    ll.head.value.next = ll.head.next.value.id;
+    ll.head.value.next = ll.head.next.value.id; //maybe this is doing something?
+
   },
 
   incorrectGuess(ll) {
