@@ -26,6 +26,16 @@ class LinkedList {
     }
   }
 
+  print(ll) {
+    let currNode = ll.head;
+    let list = [];
+    while (currNode !== null) {
+      list.push(currNode.value);
+      currNode = currNode.next;
+    }
+    console.log(list);
+  }
+
   // find(item) {
   //   let currNode = this.head;
   //   if (!this.head) {
@@ -134,8 +144,8 @@ class LinkedList {
   //     newNode.next = previousNode.next;
   //     // set the previous node's next pointer to new node
   //     previousNode.next = newNode;
-  //  }
-  //}
+  //   }
+  // }
 }
 
 

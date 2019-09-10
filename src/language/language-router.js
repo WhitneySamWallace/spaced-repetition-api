@@ -84,7 +84,7 @@ languageRouter
     );
     const words = await LanguageService.getLanguageWords(
       req.app.get('db'),
-      req.user.id,
+      req.language.id,
     );
     const currentWord = await LanguageService.getWord(
       req.app.get('db'),
@@ -96,48 +96,68 @@ languageRouter
       // ID of next word is current head + 1
       (req.language.head + 1)
     );
+    // Create SLL
+    let languageLL = new SLL();
+    languageLL = LinkedListService.createList(languageLL, words);
+    //console.log(languageLL);
     // if guess is incorrect, return 200 
-    if (req.body.guess === 'incorrect') {
+    if (req.body.guess !== currentWord[0].translation) {
       try {
-      // MANIPULATE LINKED LIST HERE?
-        let languageLL = new SLL();
-        languageLL = LinkedListService.createList(languageLL, words);
-        // set M to 1, increment incorrect count for specific word, increment total score
-        // move head to next (remove node and reposition?)
-        // reposition question according to M
+        // linked-list-service for data manipulation
+        LinkedListService.incorrectGuess(languageLL);
+        // Update database
+        let currNode = languageLL.head;
+        while (currNode !== null) {
+          await LanguageService.updateWord(
+            req.app.get('db'),
+            currNode.value.id,
+            currNode.value
+          );
+          currNode = currNode.next;
+        }
+        
         // return status 200
         res.status(200)
         // send head (new question)
           .json({
             ll: languageLL,
-            nextWord: nextWord[0].original,
-            totalScore: language.total_score,
-            wordCorrectCount: currentWord[0],
-            wordIncorrectCount: currentWord[0].incorrect_count,
-            answer: currentWord[0].translation,
-            isCorrect: false,
+            // words: words,
+            // nextWord: nextWord[0].original,
+            // totalScore: language.total_score,
+            // wordCorrectCount: currentWord[0],
+            // wordIncorrectCount: currentWord[0].incorrect_count,
+            // answer: currentWord[0].translation,
+            // isCorrect: false,
           });
       } catch (error) {
         next(error);
       }
     }
-
-    if (req.body.guess === 'correct') {
+    if (req.body.guess === currentWord[0].translation) {
       try {
-      // MANIPULATE LINKED LIST HERE?
-      // set M to M^2, increment incorrectly answered, DO NOT increment score
-      // move head to next (remove node and reposition?)
-      // reposition question according to M
-      // return status 200
+        // linked-list-service for data manipulation
+        LinkedListService.correctGuess(languageLL);
+        // update database
+        let currNode = languageLL.head;
+        while (currNode !== null) {
+          await LanguageService.updateWord(
+            req.app.get('db'),
+            currNode.value.id,
+            currNode.value
+          );
+          currNode = currNode.next;
+        }
+        // return status 200
         res.status(200)
         // send head (new question)
           .json({
-            nextWord: nextWord[0].original,
-            totalScore: language.total_score,
-            wordCorrectCount: currentWord[0],
-            wordIncorrectCount: currentWord[0].incorrect_count,
-            answer: currentWord[0].translation,
-            isCorrect: false,
+            ll: languageLL,
+            // nextWord: nextWord[0].original,
+            // totalScore: language.total_score,
+            // wordCorrectCount: currentWord[0],
+            // wordIncorrectCount: currentWord[0].incorrect_count,
+            // answer: currentWord[0].translation,
+            // isCorrect: false,
           });
       } catch (error) {
         next(error);

@@ -43,6 +43,18 @@ const LanguageService = {
         'incorrect_count',
       )
       .where({ id });
+  },
+
+  updateWord(db, id, node) {
+    return db
+      .from('word')
+      .where({ id })
+      .update({
+        next: node.next,
+        memory_value: node.memory_value,
+        correct_count: node.correct_count,
+        incorrect_count: node.incorrect_count
+      });
   }
 };
 
