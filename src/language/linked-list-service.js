@@ -10,13 +10,11 @@ const llService = {
   },
 
   correctGuess(ll) {
-    ll.print(ll);
     let currNode = ll.head;
     let previousNode = ll.head;
     let tempNode = ll.head;
     let positionCounter = 0;
     let position = 0;
-    console.log('RUN THIS ONCE');
     currNode.value.memory_value = currNode.value.memory_value * 2;
     position = currNode.value.memory_value;
     currNode.value.correct_count++;
@@ -24,13 +22,15 @@ const llService = {
       previousNode = currNode;
       currNode = currNode.next;
       positionCounter++;
-      console.log('POSITION', position, 'POSITION COUNTER', positionCounter);
     }
+    
+    ll.head = ll.head.next;
     tempNode.next = currNode.next;
-    //console.log('TEMPNODE.NEXT', tempNode.next);
     currNode.next = tempNode;
-    //console.log('CURRNODE.NEXT', currNode.next);
-    ll.print(ll);
+    
+    tempNode.value.next = tempNode.next.value.id;
+    currNode.value.next = tempNode.value.id;
+    ll.head.value.next = ll.head.next.value.id;
   },
 
   incorrectGuess(ll) {
@@ -42,8 +42,8 @@ const llService = {
     ll.head = nextNode;
     ll.head.next = currNode;
     currNode.next = tempNode;
-    console.log('LINKED LIST', ll);
-
+    nextNode.value.next = currNode.value.id;
+    currNode.value.next = tempNode.value.id;
   },
   
 };

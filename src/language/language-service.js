@@ -55,7 +55,22 @@ const LanguageService = {
         correct_count: node.correct_count,
         incorrect_count: node.incorrect_count
       });
-  }
+  },
+
+
+
+//   updateScore(db, user_id, ) {
+//     return db
+//     db.raw(
+//       `COUNT(words.correct_count)`
+//     )
+//       .from('language')
+//       .join('words', 'language.language_id', 'words.language_id')
+//       .where('language.user_id', user_id)
+//       .update({
+//         total_score: //sum of total correct
+//       });
+//   }
 };
 
 module.exports = LanguageService;

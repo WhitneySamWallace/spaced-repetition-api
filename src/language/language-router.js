@@ -91,11 +91,11 @@ languageRouter
       // ID of current word is whichever is currently the head
       req.language.head
     );
-    const nextWord = await LanguageService.getWord(
-      req.app.get('db'),
-      // ID of next word is current head + 1
-      (req.language.head + 1)
-    );
+    // const nextWord = await LanguageService.getWord(
+    //   req.app.get('db'),
+    //   // ID of next word is current head + 1
+    //   (req.language.head + 1)
+    // );
     // Create SLL
     let languageLL = new SLL();
     languageLL = LinkedListService.createList(languageLL, words);
