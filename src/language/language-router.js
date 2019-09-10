@@ -86,22 +86,14 @@ languageRouter
       req.app.get('db'),
       req.language.id,
     );
-    const currentWord = await LanguageService.getWord(
-      req.app.get('db'),
-      // ID of current word is whichever is currently the head
-      req.language.head
-    );
-    // const nextWord = await LanguageService.getWord(
-    //   req.app.get('db'),
-    //   // ID of next word is current head + 1
-    //   (req.language.head + 1)
-    // );
+    const currentWord = words[0];
+        
     // Create SLL
     let languageLL = new SLL();
     languageLL = LinkedListService.createList(languageLL, words);
-    //console.log(languageLL);
+    
     // if guess is incorrect, return 200 
-    if (req.body.guess !== currentWord[0].translation) {
+    if (req.body.guess !== currentWord.translation) {
       try {
         // linked-list-service for data manipulation
         LinkedListService.incorrectGuess(languageLL);
@@ -133,7 +125,7 @@ languageRouter
         next(error);
       }
     }
-    if (req.body.guess === currentWord[0].translation) {
+    if (req.body.guess === currentWord.translation) {
       try {
         // linked-list-service for data manipulation
         LinkedListService.correctGuess(languageLL);
