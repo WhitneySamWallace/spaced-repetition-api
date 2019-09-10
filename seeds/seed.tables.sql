@@ -28,7 +28,9 @@ VALUES
   (5, 1, 'equus', 'horse', 6),
   (6, 1, 'iris', 'rainbow', 7),
   (7, 1, 'mare', 'sea', 8),
-  (8, 1, 'tempus', 'time', null);
+  (8, 1, 'tempus', 'time', 9),
+  (9, 1, 'nihil', 'nothing', 10),
+  (10, 1, 'hortus', 'garden', null);
 
 UPDATE "language" SET head = 1 WHERE id = 1;
 
