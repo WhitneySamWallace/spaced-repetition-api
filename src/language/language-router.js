@@ -93,7 +93,12 @@ languageRouter
     languageLL = LinkedListService.createList(languageLL, words);
     
     // if guess is incorrect, return 200 
+<<<<<<< HEAD
     if (req.body.guess !== currentWord.translation) {
+=======
+    if (req.body.guess !== currentWord[0].translation) {
+      console.log(currentWord[0])
+>>>>>>> total_score
       try {
         // linked-list-service for data manipulation
         LinkedListService.incorrectGuess(languageLL);
@@ -125,7 +130,12 @@ languageRouter
         next(error);
       }
     }
+<<<<<<< HEAD
     if (req.body.guess === currentWord.translation) {
+=======
+    if (req.body.guess === currentWord[0].translation) {
+      console.log(currentWord[0])
+>>>>>>> total_score
       try {
         // linked-list-service for data manipulation
         LinkedListService.correctGuess(languageLL);
@@ -139,11 +149,17 @@ languageRouter
           );
           currNode = currNode.next;
         }
+
+        LanguageService.updateScore(
+          req.app.get('db'),
+          req.user.id
+        )
         // return status 200
         res.status(200)
         // send head (new question)
           .json({
             ll: languageLL,
+            total_score: language.correct_total,
             // nextWord: nextWord[0].original,
             // totalScore: language.total_score,
             // wordCorrectCount: currentWord[0],
