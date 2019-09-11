@@ -64,6 +64,15 @@ const LanguageService = {
         total_score: newScore
       })
       .where('language.user_id', user_id);
+  },
+
+  updateHead(db, user_id, newHead){
+    return db
+      .from('language')
+      .update({
+        head: newHead 
+      })
+      .where('language.user_id', user_id)
   }
 };
 
