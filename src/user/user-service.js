@@ -70,6 +70,7 @@ const UserService = {
         ['hortus', 'garden', null]
       ];
 
+
       const [languageHeadId] = await trx
         .into('word')
         .insert(
