@@ -78,10 +78,7 @@ languageRouter
         error: 'Missing \'guess\' in request body'
       });
     }
-    const language = await LanguageService.getUsersLanguage(
-      req.app.get('db'),
-      req.user.id,
-    );
+    
     const words = await LanguageService.getLanguageWords(
       req.app.get('db'),
       req.language.id,
@@ -140,10 +137,21 @@ languageRouter
           currNode = currNode.next;
         }
 
+        const language = await LanguageService.getUsersLanguage(
+          req.app.get('db'),
+          req.user.id,
+        );
+        const updatedScore = (language.total_score + 1);
+        console.log('BEFORE', language.total_score);
+        console.log('UPDATED SCORE SENT TO DB', updatedScore);
+        console.log('REQ USER ID', req.user.id);
         LanguageService.updateScore(
           req.app.get('db'),
-          req.user.id
-        )
+          req.user.id,
+          updatedScore
+        );
+        
+        
         // return status 200
         res.status(200)
         // send head (new question)
