@@ -60,27 +60,11 @@ const LanguageService = {
   updateScore(db, user_id, newScore) {
     return db
       .from('language')
-      .where('language.user_id', user_id)
       .update({
         total_score: newScore
-      });
+      })
+      .where('language.user_id', user_id);
   }
-
-
-  // updateScore(db, user_id) {
-  //   return db
-  //     .select(
-  //       db.raw(
-  //         `SUM('word.correct_count') as correct_total`
-  //       )
-  //     )
-  //     .from('language')
-  //     .where('language.user_id', user_id)
-  //     .join('word', 'words.language_id', 'language.id')
-  //     // .update({
-  //     //   total_score: 'language.correct_total',
-  //     // })
-  // }
 };
 
 module.exports = LanguageService;

@@ -78,18 +78,19 @@ languageRouter
         error: 'Missing \'guess\' in request body'
       });
     }
-    
+    const language = await LanguageService.getUsersLanguage(
+      req.app.get('db'),
+      req.user.id,
+    );
     const words = await LanguageService.getLanguageWords(
       req.app.get('db'),
       req.language.id,
     );
     const currentWord = words[0];
-        
     // Create SLL
     let languageLL = new SLL();
     languageLL = LinkedListService.createList(languageLL, words);
     
-    // if guess is incorrect, return 200 
     if (req.body.guess !== currentWord.translation) {
       try {
         // linked-list-service for data manipulation
@@ -107,16 +108,13 @@ languageRouter
         
         // return status 200
         res.status(200)
-        // send head (new question)
           .json({
-            ll: languageLL,
-            // words: words,
-            // nextWord: nextWord[0].original,
-            // totalScore: language.total_score,
-            // wordCorrectCount: currentWord[0],
-            // wordIncorrectCount: currentWord[0].incorrect_count,
-            // answer: currentWord[0].translation,
-            // isCorrect: false,
+            nextWord: words[1].original,
+            totalScore: language.total_score,
+            wordCorrectCount: currentWord.correct_count,
+            wordIncorrectCount: currentWord.incorrect_count,
+            answer: currentWord.translation,
+            isCorrect: false,
           });
       } catch (error) {
         next(error);
@@ -137,33 +135,29 @@ languageRouter
           currNode = currNode.next;
         }
 
-        const language = await LanguageService.getUsersLanguage(
-          req.app.get('db'),
-          req.user.id,
-        );
         const updatedScore = (language.total_score + 1);
-        console.log('BEFORE', language.total_score);
-        console.log('UPDATED SCORE SENT TO DB', updatedScore);
-        console.log('REQ USER ID', req.user.id);
-        LanguageService.updateScore(
+        
+        await LanguageService.updateScore(
           req.app.get('db'),
           req.user.id,
           updatedScore
+        );
+
+        const updatedTotalScore = await LanguageService.getUsersLanguage(
+          req.app.get('db'),
+          req.user.id,
         );
         
         
         // return status 200
         res.status(200)
-        // send head (new question)
           .json({
-            ll: languageLL,
-            total_score: language.correct_total,
-            // nextWord: nextWord[0].original,
-            // totalScore: language.total_score,
-            // wordCorrectCount: currentWord[0],
-            // wordIncorrectCount: currentWord[0].incorrect_count,
-            // answer: currentWord[0].translation,
-            // isCorrect: false,
+            nextWord: words[1].original,
+            totalScore: updatedTotalScore.total_score,
+            wordCorrectCount: currentWord.correct_count,
+            wordIncorrectCount: currentWord.incorrect_count,
+            answer: currentWord.translation,
+            isCorrect: true,
           });
       } catch (error) {
         next(error);

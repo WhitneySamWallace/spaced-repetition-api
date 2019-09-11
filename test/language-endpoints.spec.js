@@ -185,13 +185,13 @@ describe.only('Language Endpoints', function () {
             nextWord: testLanguagesWords[1].original,
             totalScore: 0,
             wordCorrectCount: 0,
-            wordIncorrectCount: 0,
+            wordIncorrectCount: 1,
             answer: testLanguagesWords[0].translation,
             isCorrect: false
           });
       });
 
-      it.skip('moves the word 1 space and updates incorrect count', async () => {
+      it('moves the word 1 space and updates incorrect count', async () => {
         await supertest(app)
           .post('/api/language/guess')
           .set('Authorization', helpers.makeAuthHeader(testUser))
@@ -217,7 +217,7 @@ describe.only('Language Endpoints', function () {
         word => word.language_id === testLanguage.id
       );
 
-      it.skip('responds with correct and moves head', () => {
+      it('responds with correct and moves head', () => {
         const correctPostBody = {
           guess: testLanguagesWords[0].translation,
         };
@@ -229,14 +229,14 @@ describe.only('Language Endpoints', function () {
           .expect({
             nextWord: testLanguagesWords[1].original,
             totalScore: 1,
-            wordCorrectCount: 0,
+            wordCorrectCount: 1,
             wordIncorrectCount: 0,
             answer: testLanguagesWords[0].translation,
             isCorrect: true
           });
       });
 
-      it.skip('moves the word 2 spaces, increases score and correct count', async () => {
+      it('moves the word 2 spaces, increases score and correct count', async () => {
         let correctPostBody = {
           guess: testLanguagesWords[0].translation,
         };
@@ -255,7 +255,7 @@ describe.only('Language Endpoints', function () {
           .expect({
             nextWord: testLanguagesWords[2].original,
             totalScore: 2,
-            wordCorrectCount: 0,
+            wordCorrectCount: 1,
             wordIncorrectCount: 0,
             answer: testLanguagesWords[1].translation,
             isCorrect: true

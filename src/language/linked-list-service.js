@@ -15,7 +15,6 @@ const llService = {
     let tempNode = ll.head;
     let positionCounter = 0;
     let position = 0;
-    // console.log('CURR', currNode, 'PREV', previousNode, 'TEMP', tempNode);
     currNode.value.memory_value = currNode.value.memory_value * 2;
     position = currNode.value.memory_value;
     currNode.value.correct_count++;
