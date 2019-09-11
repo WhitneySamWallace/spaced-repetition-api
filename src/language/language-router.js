@@ -93,12 +93,7 @@ languageRouter
     languageLL = LinkedListService.createList(languageLL, words);
     
     // if guess is incorrect, return 200 
-<<<<<<< HEAD
     if (req.body.guess !== currentWord.translation) {
-=======
-    if (req.body.guess !== currentWord[0].translation) {
-      console.log(currentWord[0])
->>>>>>> total_score
       try {
         // linked-list-service for data manipulation
         LinkedListService.incorrectGuess(languageLL);
@@ -130,12 +125,7 @@ languageRouter
         next(error);
       }
     }
-<<<<<<< HEAD
     if (req.body.guess === currentWord.translation) {
-=======
-    if (req.body.guess === currentWord[0].translation) {
-      console.log(currentWord[0])
->>>>>>> total_score
       try {
         // linked-list-service for data manipulation
         LinkedListService.correctGuess(languageLL);
