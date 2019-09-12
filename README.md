@@ -98,4 +98,3 @@ env MIGRATION_DB_NAME=spaced-repetition-test npm run migrate
 
 ## Credits:
 Created by Adrienne, Arpan, and Whitney
-
