@@ -54,10 +54,6 @@ languageRouter
         req.app.get('db'),
         req.user.id,
       );
-      // const word = await LanguageService.getWord(
-      //   req.app.get('db'),
-      //   req.language.head, // reassigned after each guess, see /guess below
-      // );
 
       const words = await LanguageService.getLanguageWords(
         req.app.get('db'),
@@ -68,7 +64,7 @@ languageRouter
         req.app.get('db'),
         req.user.id,
         words[0].id
-      )
+      );
       
       res.status(200).json({
         nextWord: words[0].original,
