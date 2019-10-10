@@ -5,7 +5,9 @@
 
 Our app helps users learn 10 Latin words with the use of our spaced repetition algorithm.
 
-Live Link: [Spaced Repetition Capstone]()
+Live Link: [Learning Latin](https://w-a-a-learning-latin.now.sh/login)
+
+GitHub Repo: [Learning Latin Client](https://github.com/WhitneySamWallace/spaced-repetition)
 
 ## Screenshots
 - Log In
@@ -58,7 +60,7 @@ Live Link: [Spaced Repetition Capstone]()
 
 ## Installation:
 
-### [Spaced Repetition Server]()
+### [Learning Latin Server](https://github.com/WhitneySamWallace/spaced-repetition-api)
 * Install dependencies: `npm install`
 
 * If using user `dunder-mifflin`:
@@ -92,7 +94,7 @@ env MIGRATION_DB_NAME=spaced-repetition-test npm run migrate
 
 * Start server with `npm start` or `npm run dev`
 
-### [Spaced Repetition Client]()
+### [Learning Latin Client](https://github.com/WhitneySamWallace/spaced-repetition)
 * Install dependencies: `npm install`
 * Start app with `npm start`
 
